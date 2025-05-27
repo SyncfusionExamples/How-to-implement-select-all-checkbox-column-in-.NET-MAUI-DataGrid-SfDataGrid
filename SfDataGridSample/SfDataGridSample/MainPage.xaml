@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="MyPage"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.DataGrid;assembly=Syncfusion.Maui.DataGrid"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             xmlns:listView="clr-namespace:Syncfusion.Maui.ListView;assembly=Syncfusion.Maui.ListView"
+             xmlns:local="clr-namespace:SfDataGridSample.ViewModel"
+             x:Class="SfDataGridSample.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:SampleViewModel x:Name="viewModel" />
+    </ContentPage.BindingContext>
+
+    <Grid Padding="10">
+        <syncfusion:SfDataGrid x:Name="SampleGrid"
+                               HeaderGridLinesVisibility="Both"
+                               GridLinesVisibility="Both"
+                               ItemsSource="{Binding Items}"
+                               ColumnWidthMode="Auto"
+                               AutoGenerateColumnsMode="None">
+            <syncfusion:SfDataGrid.Columns>
+
+                <syncfusion:DataGridTemplateColumn HeaderText="Select All">
+                    <syncfusion:DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <buttons:SfCheckBox x:Name="checkBox"
+                                              BindingContext="{Binding Source={x:Reference MyPage},Path=BindingContext}"
+                                              IsThreeState="True"
+                                              IsChecked="{Binding SelectAllChecked,Mode=TwoWay}"
+                                              StateChanged="SfCheckBox_StateChanged_1" />
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.HeaderTemplate>
+                    <syncfusion:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <buttons:SfCheckBox IsChecked="{Binding IsChecked}" StateChanged="SfCheckBox_StateChanged" />
+                        </DataTemplate>
+                    </syncfusion:DataGridTemplateColumn.CellTemplate>
+                </syncfusion:DataGridTemplateColumn>
+                <syncfusion:DataGridCheckBoxColumn MappingName="SelectAllChecked"
+                                                     HeaderText="SelectAll" />
+                <syncfusion:DataGridTextColumn HeaderText="Name"
+                                           MappingName="Name" />
+                <syncfusion:DataGridTextColumn HeaderText="Description"
+                                           MappingName="Description" />
+                <syncfusion:DataGridTextColumn HeaderText="Category"
+                                           MappingName="Category" />
+                <syncfusion:DataGridTextColumn HeaderText="Price"
+                                           MappingName="Price" />
+            </syncfusion:SfDataGrid.Columns>
+        </syncfusion:SfDataGrid>
+    </Grid>
+</ContentPage>
